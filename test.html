@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+
+	<style>
+	#quick-exit {
+	  position: fixed;
+	  right: 0;
+	  top: 20%;
+	  font-size: 1.7em;
+	  padding: .2em .7em;
+	  background: #F7D418;
+	  color: #000;
+	  border: 0.2em solid #000;
+	  border-radius: 1.7em 0 0 1.7em;
+	  border-right: none;
+	  cursor: pointer;
+	  text-decoration: none;
+	  font-weight: bold;
+	  box-shadow: 0 0 0 0.1em #F7D418, 2px 2px 5px 0.1em rgba(0, 0, 0, 0.5);
+	  transform: translateX(1.7em);
+	  transition: transform 10ms;
+	}
+	#quick-exit:hover, #quick-exit:focus {
+	  transform: scale(1.2);
+	}
+	</style>
+</head>
+<body>
+
+
+	<a id="quick-exit" target="_top" href="http://www.google.com/">Quick exit ➟</a>
+
+	<h1>Heading 1</h1>
+	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis optio natus voluptas, dolorem tempore enim ad, rem ducimus illo accusantium dicta vero magnam possimus libero dignissimos sequi velit maiores magni.</p>
+	<p>Quo, voluptates doloribus possimus doloremque nihil excepturi dolor culpa magni quisquam porro dolorem voluptatum debitis, iure molestiae accusantium tenetur quis error incidunt impedit. Tempora, id necessitatibus totam quam eum placeat.</p>
+	<p>Quo sequi ratione praesentium pariatur, eius sed, dolor suscipit earum nostrum temporibus sunt iure, perspiciatis perferendis expedita ipsam autem et, eos repellendus. Nostrum dolores perferendis numquam. Natus ab, fugiat harum.</p>
+	<p>Quos tempora, necessitatibus in libero, nobis odit laborum iusto, quod, ipsum quaerat hic dolor quae tempore nihil debitis blanditiis sunt earum atque reprehenderit mollitia? Labore provident atque sed repellat ut.</p>
+	<p>Aut minima dicta optio doloremque ad aliquid aliquam quod praesentium saepe mollitia vero facilis, cupiditate fugit in omnis earum quia, expedita quibusdam iure id ullam. Porro placeat, repellendus neque veritatis.</p>
+	<p>Omnis veniam debitis eligendi mollitia eveniet molestias, nobis recusandae animi rerum similique, ab? Assumenda molestias ipsum laboriosam dolores unde cumque architecto placeat consectetur perferendis, harum qui quaerat nesciunt fugiat ipsa.</p>
+	<p>Ipsum alias libero voluptas blanditiis, ab hic aut aliquid recusandae. Tenetur accusantium quae molestiae placeat ea, quibusdam quo eligendi facere iusto, neque porro provident est! Porro provident commodi consequatur itaque.</p>
+
+
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script>
+	function quickExit( event ) {
+		document.write( '' );
+
+		if ( history && history.replaceState ) {
+			history.replaceState( null, 'Home', '/' );
+		}
+
+		// event.preventDefault();
+		window.top.location.replace( this.href );
+	}
+
+	$( '#quick-exit' )
+		.click( quickExit )
+		.attr( 'target', '_top' )
+	;
+	</script>
+
+</body>
+</html>
