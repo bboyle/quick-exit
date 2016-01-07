@@ -8,7 +8,7 @@ Features
 --------
 
 - clear page contents
-- wipe current URL from history stack (defeats back button but **does not remove pages from history**)
+- replace current URL with '/' 'Home' (requires [historyState](http://caniuse.com/#feat=history))
 - load another "safe" website
 - progressive enhancement
 
@@ -16,10 +16,10 @@ Features
 
 - quickly exit site
 - bust out of frames
-- **TODO**: keyboard accesskey
+- keyboard accesskey
 
 ```html
-<a id="quick-exit" target="_top" href="http://www.google.com/">Quick exit ➟</a>
+<a id="quick-exit" target="_top" href="http://www.google.com/" accesskey="q">Quick exit ➟</a>
 ```
 
 ### CSS
@@ -27,6 +27,7 @@ Features
 - easy to locate (fixed to right-edge of browser, next to scroll bar)
 - high contrast (based on warning road signs)
 - focus/hover indication
+- display accesskey hint
 
 ![Screenshot of default and hover states](quick-exit-css.png)
 
@@ -35,8 +36,9 @@ Features
 	position: fixed;
 	right: 0;
 	top: 20%;
-	font-size: 1.7em;
+	font-size: 200%;
 	padding: .2em .7em;
+	white-space: nowrap;
 	background: #F7D418;
 	color: #000;
 	border: 0.2em solid #000;
@@ -50,10 +52,17 @@ Features
 		2px 2px 5px 0.1em rgba(0, 0, 0, 0.5);
 	transform: translateX(1.7em);
 	transition: transform 10ms;
+	z-index: 99999;
 }
 #quick-exit:hover,
 #quick-exit:focus {
 	transform: scale(1.2);
+}
+#quick-exit[accesskey]::before {
+    content: "Press '" attr(accesskey) "' to exit";
+    text-transform: uppercase;
+    display: block;
+    font-size: 50%;
 }
 ```
 
@@ -61,6 +70,7 @@ Features
 
 - clear page contents
 - wipe history state (hide from back button)
+- listen for accesskey (without modifiers)
 
 View [quick-exit.js](quick-exit.js)
 

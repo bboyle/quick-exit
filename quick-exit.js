@@ -2,6 +2,10 @@
 	'use strict';
 	var history = window.history;
 	var location = window.location;
+	var exitElement = document.getElementById( 'quick-exit' );
+	var accessKeyCode;
+	var eventFunction;
+
 
 	function quickExit( event ) {
 		document.write( '' );
@@ -19,15 +23,30 @@
 	}
 
 
-	var qe = document.getElementById( 'quick-exit' );
-	if ( ! qe ) {
+	function quickExitKeyboard( event ) {
+		if ( event.keyCode === accessKeyCode ) {
+			quickExit.call( exitElement, event );
+		}
+	}
+
+
+	if ( ! exitElement ) {
 		return;
 	}
 
+
+	accessKeyCode = exitElement.getAttribute( 'accesskey' ).toUpperCase().charCodeAt( 0 );
+
+
 	if ( document.addEventListener ) {
-		qe.addEventListener( 'click', quickExit, true );
+		eventFunction = 'addEventListener';
 	} else if ( document.attachEvent ) {
-		qe.attachEvent( 'onclick', quickExit );
+		eventFunction = 'attachEvent';
 	}
+	if ( eventFunction ) {
+		exitElement[ eventFunction ]( 'click', quickExit, true );
+		document[ eventFunction ]( 'keydown', quickExitKeyboard, true );
+	}
+
 
 }( window.top ));
