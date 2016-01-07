@@ -2,31 +2,9 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<title>Test page</title>
 
-	<style>
-	#quick-exit {
-	  position: fixed;
-	  right: 0;
-	  top: 20%;
-	  font-size: 1.7em;
-	  padding: .2em .7em;
-	  background: #F7D418;
-	  color: #000;
-	  border: 0.2em solid #000;
-	  border-radius: 1.7em 0 0 1.7em;
-	  border-right: none;
-	  cursor: pointer;
-	  text-decoration: none;
-	  font-weight: bold;
-	  box-shadow: 0 0 0 0.1em #F7D418, 2px 2px 5px 0.1em rgba(0, 0, 0, 0.5);
-	  transform: translateX(1.7em);
-	  transition: transform 10ms;
-	}
-	#quick-exit:hover, #quick-exit:focus {
-	  transform: scale(1.2);
-	}
-	</style>
+	<link rel="stylesheet" href="../quick-exit.css">
 </head>
 <body>
 
@@ -44,23 +22,7 @@
 
 
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<script>
-	function quickExit( event ) {
-		document.write( '' );
-
-		if ( history && history.replaceState ) {
-			history.replaceState( null, 'Home', '/' );
-		}
-
-		// event.preventDefault();
-		window.top.location.replace( this.href );
-	}
-
-	$( '#quick-exit' )
-		.click( quickExit )
-		.attr( 'target', '_top' )
-	;
-	</script>
+	<script src="../quick-exit.js"></script>
 
 </body>
 </html>
