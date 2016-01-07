@@ -4,6 +4,7 @@
 	top: 20%;
 	font-size: 1.7em;
 	padding: .2em .7em;
+	white-space: nowrap;
 	background: #F7D418;
 	color: #000;
 	border: 0.2em solid #000;
