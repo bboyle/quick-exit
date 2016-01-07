@@ -71,6 +71,8 @@ Features
 - clear page contents
 - replace current URL with '/' 'Home' (mask back button behaviour)
 - listen for accesskey (without modifiers)
+- hide window.top frame contents (using opacity)
+- hide window.top page title (using 'New Tab')
 
 View [quick-exit.js](quick-exit.js)
 

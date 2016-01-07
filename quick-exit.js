@@ -8,6 +8,9 @@
 
 
 	function quickExit( event ) {
+		window.document.body.style.opacity = 0;
+		window.document.title = 'New Tab';
+		// clears current frame only
 		document.write( '' );
 
 		if ( history && history.replaceState ) {
