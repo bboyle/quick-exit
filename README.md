@@ -69,7 +69,7 @@ Features
 ### JavaScript
 
 - clear page contents
-- wipe history state (hide from back button)
+- replace current URL with '/' 'Home' (mask back button behaviour)
 - listen for accesskey (without modifiers)
 
 View [quick-exit.js](quick-exit.js)
