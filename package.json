@@ -1,0 +1,19 @@
+{
+  "name": "quick-exit",
+  "version": "1.0.0-alpha.1",
+  "description": "Button to protect privacy when visitors need to exit a website quickly",
+  "main": "quick-exit.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bboyle/quick-exit.git"
+  },
+  "author": "Ben Boyle <benjamins.boyle@gmail.com> (http://ultimate.benboyle.id.au)",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/bboyle/quick-exit/issues"
+  },
+  "homepage": "https://github.com/bboyle/quick-exit#readme",
+}
