@@ -1,7 +1,7 @@
 (function( window ) {
 	'use strict';
+
 	var history = window.history;
-	var location = window.location;
 	var exitElement = document.getElementById( 'quick-exit' );
 	var accessKeyCode;
 	var eventFunction;
@@ -17,9 +17,7 @@
 			history.replaceState( null, 'Home', '/' );
 		}
 
-		// if location is on same domain, it will replace current URL
-		// otherwise back button *WILL* return to current page
-		location.replace( this.href );
+		window.location = this.href;
 
 		event.preventDefault();
 		return false;
