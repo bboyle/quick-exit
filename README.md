@@ -74,7 +74,7 @@ Features
 - hide window.top frame contents (using opacity)
 - hide window.top page title (using 'New Tab')
 
-View [quick-exit.js](quick-exit.js)
+View [quick-exit.js](src/quick-exit.js)
 
 
 Licence
