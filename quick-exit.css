@@ -18,6 +18,7 @@
 	transform: translateX(1.7em);
 	transition: transform 10ms;
 }
-#quick-exit:hover, #quick-exit:focus {
+#quick-exit:hover,
+#quick-exit:focus {
 	transform: scale(1.2);
 }

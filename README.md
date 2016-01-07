@@ -24,8 +24,11 @@ Features
 
 ### CSS
 
-- easy to locate (fixed position)
-- high contrast
+- easy to locate (fixed to right-edge of browser, next to scroll bar)
+- high contrast (based on warning road signs)
+- focus/hover indication
+
+![Screenshot of default and hover states](quick-exit-css.png)
 
 ```css
 #quick-exit {
@@ -48,7 +51,8 @@ Features
 	transform: translateX(1.7em);
 	transition: transform 10ms;
 }
-#quick-exit:hover, #quick-exit:focus {
+#quick-exit:hover,
+#quick-exit:focus {
 	transform: scale(1.2);
 }
 ```
