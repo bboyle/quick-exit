@@ -17,6 +17,7 @@
 		2px 2px 5px 0.1em rgba(0, 0, 0, 0.5);
 	transform: translateX(1.7em);
 	transition: transform 10ms;
+	z-index: 99999;
 }
 #quick-exit:hover,
 #quick-exit:focus {
