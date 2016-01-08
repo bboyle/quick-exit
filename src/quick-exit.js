@@ -11,7 +11,7 @@
 		window.document.body.style.opacity = 0;
 		window.document.title = 'New Tab';
 		// clears current frame only
-		document.write( '' );
+		document.write( '' ); // eslint-disable-line no-implied-eval
 
 		if ( history && history.replaceState ) {
 			history.replaceState( null, 'Home', '/' );

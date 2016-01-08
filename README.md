@@ -4,6 +4,10 @@ Quick exit button
 Button that sits on screen and provides a fast way for a user to exit the current website.
 Intended to help users protect privacy. For example: when accessing information about domestic violence.
 
+[![bitHound Overall Score](https://www.bithound.io/github/bboyle/quick-exit/badges/score.svg)](https://www.bithound.io/github/bboyle/quick-exit)
+[![bitHound Dependencies](https://www.bithound.io/github/bboyle/quick-exit/badges/dependencies.svg)](https://www.bithound.io/github/bboyle/quick-exit/gh-pages/dependencies/npm)
+[![bitHound Dev Dependencies](https://www.bithound.io/github/bboyle/quick-exit/badges/devDependencies.svg)](https://www.bithound.io/github/bboyle/quick-exit/gh-pages/dependencies/npm)
+
 Features
 --------
 
