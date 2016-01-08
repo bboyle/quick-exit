@@ -26,6 +26,9 @@
 
 	function quickExitKeyboard( event ) {
 		if ( event.keyCode === accessKeyCode ) {
+			if ( /^(INPUT|TEXTAREA|SELECT)$/i.test( event.target.tagName )) {
+				return;
+			}
 			quickExit.call( exitElement, event );
 		}
 	}

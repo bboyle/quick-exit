@@ -55,3 +55,32 @@ casper.test.begin( 'quick exit (keyboard)', 5, function suite( test ) {
 		test.done();
 	});
 });
+
+
+casper.test.begin( 'quick exit (keyboard - forms integration)', 8, function suite( test ) {
+
+	casper.start()
+
+	.thenOpen( url )
+	.then(function() {
+		test.assertExists( 'a#quick-exit[accesskey=q]', 'accesskey is Q' );
+
+		test.assertExists( 'input[type=text][name=text_input]', 'text input is present' );
+		this.sendKeys( 'input[type=text][name=text_input]', 'Quentin' );
+		test.assertField( 'text_input', 'Quentin', 'accesskey ignored for text input' );
+
+		test.assertExists( 'textarea[name=textarea]', 'textarea is present' );
+		this.sendKeys( 'textarea[name=textarea]', 'The quick brown fox' );
+		test.assertField( 'textarea', 'The quick brown fox', 'accesskey ignored for textarea' );
+
+		test.assertExists( 'select[name=select]', 'select is present' );
+		test.assertExists( 'option[value=Queensland]', 'option for "Queensland" is present' );
+		this.click( 'select[name=select]' ); // focus for sendKeys
+		this.sendKeys( 'select[name=select]', 'q' );
+		test.assertField( 'select', 'Queensland', 'accesskey ignored for select' );
+	})
+
+	.run(function() {
+		test.done();
+	});
+});
