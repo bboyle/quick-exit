@@ -11,13 +11,17 @@
 		window.document.body.style.opacity = 0;
 		window.document.title = 'New Tab';
 		// clears current frame only
+		/* jshint -W060 */
 		document.write( '' ); // eslint-disable-line no-implied-eval
+		/* jshint +W060 */
 
 		if ( history && history.replaceState ) {
 			history.replaceState( null, 'Home', '/' );
 		}
 
+		/* jshint -W040 */
 		window.location = this.href;
+		/* jshint +W040 */
 
 		event.preventDefault();
 		return false;
