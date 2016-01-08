@@ -39,6 +39,18 @@ module.exports = function( grunt ) {
 			}
 		},
 
+		// build
+		uglify: {
+			js: {
+				options: {
+					sourceMap: true
+				},
+				files: {
+					'dist/quick-exit.min.js': [ 'src/quick-exit.js' ]
+				}
+			}
+		},
+
 		// watch
 		watch: {
 			options: {
@@ -61,9 +73,11 @@ module.exports = function( grunt ) {
 	grunt.loadNpmTasks( 'grunt-contrib-connect' );
 	grunt.loadNpmTasks( 'grunt-eslint' );
 	grunt.loadNpmTasks( 'grunt-contrib-watch' );
+	grunt.loadNpmTasks( 'grunt-contrib-uglify' );
 
 
 	// helpers
 	grunt.registerTask( 'test', [ 'eslint', 'connect:testserver', 'casper' ]);
+	grunt.registerTask( 'build', [ 'uglify' ]);
 	grunt.registerTask( 'default', [ 'test', 'watch' ]);
 };
