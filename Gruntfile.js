@@ -39,10 +39,48 @@ module.exports = function( grunt ) {
 			}
 		},
 
+		// build
+		uglify: {
+			js: {
+				options: {
+					sourceMap: true
+				},
+				files: {
+					'dist/quick-exit.min.js': [ 'src/quick-exit.js' ]
+				}
+			}
+		},
+
+		sass: {
+			src: {
+				options: {
+					sourceComments: true,
+					outputStyle: 'expanded',
+					indentType: 'tab',
+					indentWidth: 1
+				},
+				files: {
+					'src/quick-exit.css': 'src/quick-exit.scss'
+				}
+			},
+			dist: {
+				options: {
+					outputStyle: 'compressed'
+				},
+				files: {
+					'dist/quick-exit.min.css': 'src/quick-exit.scss'
+				}
+			}
+		},
+
 		// watch
 		watch: {
 			options: {
 				spawn: false
+			},
+			sass: {
+				files: 'src/*.scss',
+				tasks: [ 'sass:src', 'casper:acceptance' ]
 			},
 			js: {
 				files: 'src/*.js',
@@ -61,9 +99,12 @@ module.exports = function( grunt ) {
 	grunt.loadNpmTasks( 'grunt-contrib-connect' );
 	grunt.loadNpmTasks( 'grunt-eslint' );
 	grunt.loadNpmTasks( 'grunt-contrib-watch' );
+	grunt.loadNpmTasks( 'grunt-contrib-uglify' );
+	grunt.loadNpmTasks( 'grunt-sass' );
 
 
 	// helpers
 	grunt.registerTask( 'test', [ 'eslint', 'connect:testserver', 'casper' ]);
-	grunt.registerTask( 'default', [ 'test', 'watch' ]);
+	grunt.registerTask( 'build', [ 'uglify', 'sass:dist' ]);
+	grunt.registerTask( 'default', [ 'sass:src', 'test', 'watch' ]);
 };

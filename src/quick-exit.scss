@@ -1,0 +1,37 @@
+$color: #000;
+$backgroundColor: #F7D418;
+$approxLineHeight: 1.7em;
+
+#quick-exit {
+	position: fixed;
+	right: 0;
+	top: 20%;
+	font-size: 200%;
+	padding: .2em .7em;
+	white-space: nowrap;
+	background: $backgroundColor;
+	color: $color;
+	border: .2em solid $color;
+	border-radius: $approxLineHeight 0 0 $approxLineHeight;
+	border-right: none;
+	cursor: pointer;
+	text-decoration: none;
+	font-weight: bold;
+	box-shadow:
+		0 0 0 .1em $backgroundColor,
+		2px 2px 5px 0.1em rgba(0, 0, 0, 0.5);
+	transform: translateX($approxLineHeight);
+	transition: transform 10ms;
+	z-index: 99999;
+
+	&:hover,
+	&:focus {
+		transform: scale(1.2);
+	}
+	&[accesskey]::before {
+		content: "Press '" attr(accesskey) "' to exit";
+		text-transform: uppercase;
+		display: block;
+		font-size: 50%;
+	}
+}
