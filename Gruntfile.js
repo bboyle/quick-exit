@@ -57,7 +57,8 @@ module.exports = function( grunt ) {
 					sourceComments: true,
 					outputStyle: 'expanded',
 					indentType: 'tab',
-					indentWidth: 1
+					indentWidth: 1,
+					linefeed: 'crlf'
 				},
 				files: {
 					'src/quick-exit.css': 'src/quick-exit.scss'
@@ -65,7 +66,8 @@ module.exports = function( grunt ) {
 			},
 			dist: {
 				options: {
-					outputStyle: 'compressed'
+					outputStyle: 'compressed',
+					linefeed: 'crlf'
 				},
 				files: {
 					'dist/quick-exit.min.css': 'src/quick-exit.scss'
