@@ -1,6 +1,7 @@
 /*global casper */
 const TEST_URL = 'http://localhost:9999/test/test.html';
 const TEST_URL_UNLOAD = 'http://localhost:9999/test/unload.html';
+const TEST_URL_DOMAIN = 'http://bboyle.github.io/quick-exit/test/localhost.html';
 
 
 function standardBehaviourTest( url ) {
@@ -22,7 +23,7 @@ function standardBehaviourTest( url ) {
 
 		.back()
 		.then(function() {
-			test.assertUrlMatch( /^http:\/\/localhost:9999\/$/, 'Landed on localhost:9999/ after back()' );
+			test.assertUrlMatch( new RegExp( '^' + url.replace( /^(.*:\/\/[^/]+\/).*/, '$1' ) + '$' ), 'Landed on / after back()' );
 		})
 
 		.run(function() {
@@ -34,6 +35,7 @@ function standardBehaviourTest( url ) {
 
 casper.test.begin( 'quick exit (click)', 4, standardBehaviourTest( TEST_URL ));
 casper.test.begin( 'quick exit (unload)', 4, standardBehaviourTest( TEST_URL_UNLOAD ));
+casper.test.begin( 'quick exit (same origin)', 4, standardBehaviourTest( TEST_URL_DOMAIN ));
 
 
 casper.test.begin( 'quick exit (keyboard)', 5, function suite( test ) {
