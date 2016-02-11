@@ -2,6 +2,8 @@
 const TEST_URL = 'http://localhost:9999/test/test.html';
 const TEST_URL_UNLOAD = 'http://localhost:9999/test/unload.html';
 const TEST_URL_DOMAIN = 'http://bboyle.github.io/quick-exit/test/localhost.html';
+const TEST_URL_ESCAPE = 'http://localhost:9999/test/test-escape.html';
+const TEST_URL_ACCESSKEY = 'http://localhost:9999/test/test-accesskey.html';
 
 
 function standardBehaviourTest( url ) {
@@ -32,45 +34,47 @@ function standardBehaviourTest( url ) {
 	};
 }
 
+function keyboardBehaviourTest( url, accesskey ) {
+	return function suite( test ) {
+
+		casper.start()
+
+		.thenOpen( url )
+		.then(function() {
+			test.assertExists( 'a#quick-exit', 'Quick exit link is present' );
+			this.sendKeys( 'body', casper.page.event.key[ accesskey ] );
+			test.assertElementCount( '*', 0, 'Page is empty after quick exit using ' + accesskey + ' keyboard shortcut' );
+		})
+
+		.then(function() {
+			test.assertUrlMatch( /^http:\/\/www\.google\.com/, 'Landed on google.com after clicking quick exit' );
+		})
+
+		.back()
+		.then(function() {
+			test.assertUrlMatch( /^http:\/\/localhost:9999\/$/, 'Landed on localhost:9999/ after back()' );
+		})
+
+		.run(function() {
+			test.done();
+		});
+	};
+}
+
 
 casper.test.begin( 'quick exit (click)', 4, standardBehaviourTest( TEST_URL ));
 casper.test.begin( 'quick exit (unload)', 4, standardBehaviourTest( TEST_URL_UNLOAD ));
 casper.test.begin( 'quick exit (same origin)', 4, standardBehaviourTest( TEST_URL_DOMAIN ));
 
-
-casper.test.begin( 'quick exit (keyboard)', 5, function suite( test ) {
-
-	casper.start()
-
-	.thenOpen( TEST_URL )
-	.then(function() {
-		test.assertExists( 'a#quick-exit', 'Quick exit link is present' );
-		test.assertExists( 'a#quick-exit[accesskey=q]', 'accesskey is Q' );
-
-		this.sendKeys( 'body', 'q' );
-		test.assertElementCount( '*', 0, 'Page is empty after quick exit click' );
-	})
-
-	.then(function() {
-		test.assertUrlMatch( /^http:\/\/www\.google\.com/, 'Landed on google.com after clicking quick exit' );
-	})
-
-	.back()
-	.then(function() {
-		test.assertUrlMatch( /^http:\/\/localhost:9999\/$/, 'Landed on localhost:9999/ after back()' );
-	})
-
-	.run(function() {
-		test.done();
-	});
-});
+casper.test.begin( 'quick exit (accesskey Escape)', 4, keyboardBehaviourTest( TEST_URL_ESCAPE, 'Escape' ));
+casper.test.begin( 'quick exit (accesskey Q)', 4, keyboardBehaviourTest( TEST_URL_ACCESSKEY, 'Q' ));
 
 
-casper.test.begin( 'quick exit (keyboard - forms integration)', 8, function suite( test ) {
+casper.test.begin( 'quick exit (accesskey Q - forms integration)', 8, function suite( test ) {
 
 	casper.start()
 
-	.thenOpen( TEST_URL )
+	.thenOpen( TEST_URL_ACCESSKEY )
 	.then(function() {
 		test.assertExists( 'a#quick-exit[accesskey=q]', 'accesskey is Q' );
 
@@ -92,4 +96,32 @@ casper.test.begin( 'quick exit (keyboard - forms integration)', 8, function suit
 	.run(function() {
 		test.done();
 	});
+});
+
+casper.test.begin( 'no accesskey by default', 5, function suite( test ) {
+	casper.start()
+
+	.thenOpen( TEST_URL )
+	.then(function() {
+		test.assertExists( 'a#quick-exit', 'Quick exit link is present' );
+		test.assertDoesntExist( 'a#quick-exit[accesskey]', 'Quick exit link does not have accesskey attribute' );
+		test.assertDoesntExist( 'a#quick-exit[data-accesskey]', 'Quick exit link does not have data-accesskey attribute' );
+
+		this.sendKeys( 'body', casper.page.event.key.Escape );
+	})
+
+	.then(function() {
+		test.assertUrlMatch( /^http:\/\/localhost:9999\/test\/test\.html/, 'Still on test page after \'Escape\''  );
+
+		this.sendKeys( 'body', casper.page.event.key.Q );
+	})
+
+	.then(function() {
+		test.assertUrlMatch( /^http:\/\/localhost:9999\/test\/test\.html/, 'Still on test page after \'Q\''  );
+	})
+
+	.run(function() {
+		test.done();
+	});
+
 });

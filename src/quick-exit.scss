@@ -7,6 +7,7 @@ $approxLineHeight: 1.7em;
 	right: 0;
 	top: 20%;
 	font-size: 200%;
+	line-height: 1;
 	padding: .2em .7em;
 	white-space: nowrap;
 	background: $backgroundColor;
@@ -28,10 +29,14 @@ $approxLineHeight: 1.7em;
 	&:focus {
 		transform: scale(1.2);
 	}
+	&[data-accesskey]::before,
 	&[accesskey]::before {
-		content: "Press '" attr(accesskey) "' to exit";
+		content: "Press '" attr(accesskey) "' to";
 		text-transform: uppercase;
 		display: block;
 		font-size: 50%;
+	}
+	&[data-accesskey]::before {
+		content: "Press '" attr(data-accesskey) "' to";
 	}
 }

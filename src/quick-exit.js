@@ -1,6 +1,10 @@
 (function( window ) {
 	'use strict';
 
+	var KEYS = {
+		esc: 27
+	};
+
 	var history = window.history;
 	var exitElement = document.getElementById( 'quick-exit' );
 	var accessKeyCode;
@@ -30,7 +34,7 @@
 
 	function quickExitKeyboard( event ) {
 		if ( event.keyCode === accessKeyCode ) {
-			if ( /^(INPUT|TEXTAREA|SELECT)$/i.test( event.target.tagName )) {
+			if ( /^(INPUT|TEXTAREA|SELECT|BUTTON)$/i.test( event.target.tagName )) {
 				return;
 			}
 			quickExit.call( exitElement, event );
@@ -43,7 +47,16 @@
 	}
 
 
-	accessKeyCode = exitElement.getAttribute( 'accesskey' ).toUpperCase().charCodeAt( 0 );
+	accessKeyCode = exitElement.getAttribute( 'data-accesskey' );
+	if (accessKeyCode) {
+		accessKeyCode = KEYS[ accessKeyCode.toLowerCase() ];
+
+	} else {
+		accessKeyCode = exitElement.getAttribute( 'accesskey' );
+		if ( accessKeyCode ) {
+			accessKeyCode = accessKeyCode.toUpperCase().charCodeAt( 0 );
+		}
+	}
 
 
 	if ( document.addEventListener ) {

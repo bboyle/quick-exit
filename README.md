@@ -21,9 +21,14 @@ Features
 - quickly exit site
 - bust out of frames
 - keyboard accesskey
+- support for `Esc` as an access key using `data-accesskey="Esc"`
 
 ```html
 <a id="quick-exit" target="_top" href="http://www.google.com/" accesskey="q">Quick exit ➟</a>
+```
+
+```html
+<a id="quick-exit" target="_top" href="http://www.google.com/" data-accesskey="Esc">Quick exit ➟</a>
 ```
 
 ### CSS
