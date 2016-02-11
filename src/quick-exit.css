@@ -38,3 +38,10 @@
 #quick-exit[data-accesskey]::before {
 	content: "Press '" attr(data-accesskey) "' to";
 }
+
+/* line 43, D:/Users/Ben/Documents/GitHub/qgov/domestic-violence/quick-exit/src/quick-exit.scss */
+#quick-exit::after {
+	content: attr(href);
+	font: menu;
+	display: block;
+}

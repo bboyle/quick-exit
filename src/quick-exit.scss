@@ -39,4 +39,10 @@ $approxLineHeight: 1.7em;
 	&[data-accesskey]::before {
 		content: "Press '" attr(data-accesskey) "' to";
 	}
+
+	&::after {
+		content: attr(href);
+		font: menu;
+		display: block;
+	}
 }
