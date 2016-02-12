@@ -44,8 +44,21 @@ $approxLineHeight: 1.7em;
 		font: menu;
 	}
 
+	ul, li {
+		display: inline;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
 	a {
 		color: $color;
 		text-decoration: none;
+	}
+
+	svg {
+		width: 1em;
+		height: 1em;
+		fill: currentColor;
 	}
 }

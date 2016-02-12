@@ -6,7 +6,8 @@
 
 
 	function quickExit( event ) {
-		var href = this.href || event.target.href || 'about:blank';
+		var href;
+		var target = event.target;
 
 		window.document.body.style.opacity = 0;
 		window.document.title = 'New Tab';
@@ -18,6 +19,14 @@
 		if ( history && history.replaceState ) {
 			history.replaceState( null, 'Home', '/' );
 		}
+
+		href = this.href || target.href;
+		while ( ! href && target !== exitElement && target.parentNode ) {
+			target = target.parentNode;
+			href = target.href;
+		}
+
+		href = href || this.getElementsByTagName( 'a' )[ 0 ].href || 'about:blank';
 
 		/* jshint -W040 */
 		window.location = href;

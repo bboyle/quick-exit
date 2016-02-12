@@ -46,7 +46,22 @@
 }
 
 /* line 47, D:/Users/Ben/Documents/GitHub/qgov/domestic-violence/quick-exit/src/quick-exit.scss */
+#quick-exit ul, #quick-exit li {
+	display: inline;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+/* line 54, D:/Users/Ben/Documents/GitHub/qgov/domestic-violence/quick-exit/src/quick-exit.scss */
 #quick-exit a {
 	color: #000;
 	text-decoration: none;
+}
+
+/* line 59, D:/Users/Ben/Documents/GitHub/qgov/domestic-violence/quick-exit/src/quick-exit.scss */
+#quick-exit svg {
+	width: 1em;
+	height: 1em;
+	fill: currentColor;
 }
