@@ -13,7 +13,6 @@
 	border-radius: 1.7em 0 0 1.7em;
 	border-right: none;
 	cursor: pointer;
-	text-decoration: none;
 	font-weight: bold;
 	box-shadow: 0 0 0 0.1em #F7D418, 2px 2px 5px 0.1em rgba(0, 0, 0, 0.5);
 	transform: translateX(1.7em);
@@ -21,12 +20,12 @@
 	z-index: 99999;
 }
 
-/* line 28, D:/Users/Ben/Documents/GitHub/qgov/domestic-violence/quick-exit/src/quick-exit.scss */
-#quick-exit:hover, #quick-exit:focus {
+/* line 27, D:/Users/Ben/Documents/GitHub/qgov/domestic-violence/quick-exit/src/quick-exit.scss */
+#quick-exit:hover {
 	transform: scale(1.2);
 }
 
-/* line 32, D:/Users/Ben/Documents/GitHub/qgov/domestic-violence/quick-exit/src/quick-exit.scss */
+/* line 31, D:/Users/Ben/Documents/GitHub/qgov/domestic-violence/quick-exit/src/quick-exit.scss */
 #quick-exit[data-accesskey]::before, #quick-exit[accesskey]::before {
 	content: "Press '" attr(accesskey) "' to";
 	text-transform: uppercase;
@@ -34,14 +33,20 @@
 	font-size: 50%;
 }
 
-/* line 39, D:/Users/Ben/Documents/GitHub/qgov/domestic-violence/quick-exit/src/quick-exit.scss */
+/* line 38, D:/Users/Ben/Documents/GitHub/qgov/domestic-violence/quick-exit/src/quick-exit.scss */
 #quick-exit[data-accesskey]::before {
 	content: "Press '" attr(data-accesskey) "' to";
 }
 
-/* line 43, D:/Users/Ben/Documents/GitHub/qgov/domestic-violence/quick-exit/src/quick-exit.scss */
-#quick-exit::after {
-	content: attr(href);
-	font: menu;
+/* line 41, D:/Users/Ben/Documents/GitHub/qgov/domestic-violence/quick-exit/src/quick-exit.scss */
+#quick-exit[title]::after {
 	display: block;
+	content: attr(title);
+	font: menu;
+}
+
+/* line 47, D:/Users/Ben/Documents/GitHub/qgov/domestic-violence/quick-exit/src/quick-exit.scss */
+#quick-exit a {
+	color: #000;
+	text-decoration: none;
 }

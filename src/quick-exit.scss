@@ -16,7 +16,6 @@ $approxLineHeight: 1.7em;
 	border-radius: $approxLineHeight 0 0 $approxLineHeight;
 	border-right: none;
 	cursor: pointer;
-	text-decoration: none;
 	font-weight: bold;
 	box-shadow:
 		0 0 0 .1em $backgroundColor,
@@ -25,10 +24,10 @@ $approxLineHeight: 1.7em;
 	transition: transform 10ms;
 	z-index: 99999;
 
-	&:hover,
-	&:focus {
+	&:hover {
 		transform: scale(1.2);
 	}
+
 	&[data-accesskey]::before,
 	&[accesskey]::before {
 		content: "Press '" attr(accesskey) "' to";
@@ -39,10 +38,14 @@ $approxLineHeight: 1.7em;
 	&[data-accesskey]::before {
 		content: "Press '" attr(data-accesskey) "' to";
 	}
-
-	&::after {
-		content: attr(href);
-		font: menu;
+	&[title]::after {
 		display: block;
+		content: attr(title);
+		font: menu;
+	}
+
+	a {
+		color: $color;
+		text-decoration: none;
 	}
 }

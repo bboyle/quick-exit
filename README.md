@@ -21,14 +21,20 @@ Features
 - quickly exit site
 - bust out of frames
 - keyboard accesskey
-- support for `Esc` as an access key using `data-accesskey="Esc"`
+- support for `Esc` as an access key using `data-accesskey="Esc"` on links
+- display an accesskey message using `data-accesskey="Esc"` on the container
+- display an optional message using `data-title="http://www.google.com"`
 
 ```html
-<a id="quick-exit" target="_top" href="http://www.google.com/" accesskey="q">Quick exit ➟</a>
+<div id="quick-exit" data-accesskey="q" data-title="http://www.google.com/">
+    <a target="_top" href="http://www.google.com/" accesskey="q">Quick exit ➟</a>
+</div>
 ```
 
 ```html
-<a id="quick-exit" target="_top" href="http://www.google.com/" data-accesskey="Esc">Quick exit ➟</a>
+<div id="quick-exit" data-accesskey="Esc">
+    <a target="_top" href="http://www.google.com/" data-accesskey="Esc">Quick exit ➟</a>
+</div>
 ```
 
 ### CSS
@@ -37,43 +43,13 @@ Features
 - high contrast (based on warning road signs)
 - focus/hover indication
 - display accesskey hint
+- `data-accesskey="q"` displayed as *PRESS 'Q' TO EXIT* above links
+- `data-title="http://www.google.com" displayed a message below links
+- override text by setting the `content` property for `#quick-exit::before` and `#quick-exit::after`
 
 ![Screenshot of default and hover states](quick-exit-css.png)
 
-```css
-#quick-exit {
-	position: fixed;
-	right: 0;
-	top: 20%;
-	font-size: 200%;
-	padding: .2em .7em;
-	white-space: nowrap;
-	background: #F7D418;
-	color: #000;
-	border: 0.2em solid #000;
-	border-radius: 1.7em 0 0 1.7em;
-	border-right: none;
-	cursor: pointer;
-	text-decoration: none;
-	font-weight: bold;
-	box-shadow:
-		0 0 0 0.1em #F7D418,
-		2px 2px 5px 0.1em rgba(0, 0, 0, 0.5);
-	transform: translateX(1.7em);
-	transition: transform 10ms;
-	z-index: 99999;
-}
-#quick-exit:hover,
-#quick-exit:focus {
-	transform: scale(1.2);
-}
-#quick-exit[accesskey]::before {
-    content: "Press '" attr(accesskey) "' to exit";
-    text-transform: uppercase;
-    display: block;
-    font-size: 50%;
-}
-```
+View [quick-exit.css](src/quick-exit.css)
 
 ### JavaScript
 

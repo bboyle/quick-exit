@@ -1,17 +1,13 @@
 (function( window ) {
 	'use strict';
 
-	var KEYS = {
-		esc: 27
-	};
-
 	var history = window.history;
 	var exitElement = document.getElementById( 'quick-exit' );
-	var accessKeyCode;
-	var eventFunction;
 
 
 	function quickExit( event ) {
+		var href = this.href || event.target.href || 'about:blank';
+
 		window.document.body.style.opacity = 0;
 		window.document.title = 'New Tab';
 		// clears current frame only
@@ -24,21 +20,11 @@
 		}
 
 		/* jshint -W040 */
-		window.location = this.href;
+		window.location = href;
 		/* jshint +W040 */
 
 		event.preventDefault();
 		return false;
-	}
-
-
-	function quickExitKeyboard( event ) {
-		if ( event.keyCode === accessKeyCode ) {
-			if ( /^(INPUT|TEXTAREA|SELECT|BUTTON)$/i.test( event.target.tagName )) {
-				return;
-			}
-			quickExit.call( exitElement, event );
-		}
 	}
 
 
@@ -47,27 +33,61 @@
 	}
 
 
-	accessKeyCode = exitElement.getAttribute( 'data-accesskey' );
-	if (accessKeyCode) {
-		accessKeyCode = KEYS[ accessKeyCode.toLowerCase() ];
+	function init() {
+		var eventFunction;
+		var i;
+		var accesskey;
+		var link;
 
-	} else {
-		accessKeyCode = exitElement.getAttribute( 'accesskey' );
-		if ( accessKeyCode ) {
-			accessKeyCode = accessKeyCode.toUpperCase().charCodeAt( 0 );
+		var KEYS = {
+			esc: 27
+		};
+
+		var accesskeyLinks = {};
+
+		function quickExitKeyboard( event ) {
+			if ( accesskeyLinks[ event.keyCode ]) {
+				if ( /^(INPUT|TEXTAREA|SELECT|BUTTON)$/i.test( event.target.tagName )) {
+					return;
+				}
+				quickExit.call( accesskeyLinks[ event.keyCode ], event );
+			}
+		}
+
+		link = exitElement.getElementsByTagName( 'a' );
+		for ( i = 0; i < link.length; i++ ) {
+
+			accesskey = link[ i ].getAttribute( 'data-accesskey' );
+			if ( accesskey ) {
+				accesskey = KEYS[ accesskey.toLowerCase() ];
+
+			} else {
+				accesskey = link[ i ].getAttribute( 'accesskey' );
+				if ( accesskey ) {
+					accesskey = accesskey.toUpperCase().charCodeAt( 0 );
+				}
+			}
+
+			if ( accesskey ) {
+				accesskeyLinks[ accesskey ] = link[ i ];
+			}
+		}
+
+
+		if ( document.addEventListener ) {
+			eventFunction = 'addEventListener';
+		} else if ( document.attachEvent ) {
+			eventFunction = 'attachEvent';
+		}
+
+		if ( eventFunction ) {
+			exitElement[ eventFunction ]( 'click', quickExit, true );
+			if ( Object.keys( accesskeyLinks ).length ) {
+				document[ eventFunction ]( 'keydown', quickExitKeyboard, true );
+			}
 		}
 	}
-
-
-	if ( document.addEventListener ) {
-		eventFunction = 'addEventListener';
-	} else if ( document.attachEvent ) {
-		eventFunction = 'attachEvent';
-	}
-	if ( eventFunction ) {
-		exitElement[ eventFunction ]( 'click', quickExit, true );
-		document[ eventFunction ]( 'keydown', quickExitKeyboard, true );
-	}
+	init();
 
 
 }( window.top ));
