@@ -27,7 +27,7 @@
 			href = target.href;
 		}
 
-		href = href || this.getElementsByTagName( 'a' )[ 0 ].href || 'about:blank';
+		href = href || target.getElementsByTagName( 'a' )[ 0 ].href || 'about:blank';
 
 		/* jshint -W040 */
 		window.location = href;
@@ -42,7 +42,7 @@
 			if ( /^(INPUT|TEXTAREA|SELECT|BUTTON)$/i.test( event.target.tagName )) {
 				return;
 			}
-			quickExit.call( this, event, accesskeyLinks[ event.keyCode ] );
+			quickExit.call( event.target, event, accesskeyLinks[ event.keyCode ] );
 		}
 	}
 
