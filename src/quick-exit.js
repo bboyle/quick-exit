@@ -3,11 +3,12 @@
 
 	var history = window.history;
 	var exitElement = document.getElementById( 'quick-exit' );
+	var accesskeyLinks = {};
 
 
-	function quickExit( event ) {
-		var href;
-		var target = event.target;
+	function quickExit( event, target ) {
+		target = target || event.target;
+		var href = target.href;
 
 		window.document.body.style.opacity = 0;
 		window.document.title = 'New Tab';
@@ -20,7 +21,7 @@
 			history.replaceState( null, 'Home', '/' );
 		}
 
-		href = this.href || target.href;
+		// href = this.href || target.href;
 		while ( ! href && target !== exitElement && target.parentNode ) {
 			target = target.parentNode;
 			href = target.href;
@@ -36,9 +37,13 @@
 		return false;
 	}
 
-
-	if ( ! exitElement ) {
-		return;
+	function quickExitKeyboard( event ) {
+		if ( accesskeyLinks[ event.keyCode ]) {
+			if ( /^(INPUT|TEXTAREA|SELECT|BUTTON)$/i.test( event.target.tagName )) {
+				return;
+			}
+			quickExit.call( this, event, accesskeyLinks[ event.keyCode ] );
+		}
 	}
 
 
@@ -51,17 +56,6 @@
 		var KEYS = {
 			esc: 27
 		};
-
-		var accesskeyLinks = {};
-
-		function quickExitKeyboard( event ) {
-			if ( accesskeyLinks[ event.keyCode ]) {
-				if ( /^(INPUT|TEXTAREA|SELECT|BUTTON)$/i.test( event.target.tagName )) {
-					return;
-				}
-				quickExit.call( accesskeyLinks[ event.keyCode ], event );
-			}
-		}
 
 		link = exitElement.getElementsByTagName( 'a' );
 		for ( i = 0; i < link.length; i++ ) {
@@ -82,7 +76,6 @@
 			}
 		}
 
-
 		if ( document.addEventListener ) {
 			eventFunction = 'addEventListener';
 		} else if ( document.attachEvent ) {
@@ -96,7 +89,10 @@
 			}
 		}
 	}
-	init();
 
+
+	if ( exitElement ) {
+		init();
+	}
 
 }( window.top ));
