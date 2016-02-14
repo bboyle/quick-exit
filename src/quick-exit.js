@@ -3,11 +3,12 @@
 
 	var history = window.history;
 	var exitElement = document.getElementById( 'quick-exit' );
+	var accesskeyLinks = {};
 
 
-	function quickExit( event ) {
-		var href;
-		var target = event.target;
+	function quickExit( event, target ) {
+		target = target || event.target;
+		var href = target.href;
 
 		window.document.body.style.opacity = 0;
 		window.document.title = 'New Tab';
@@ -20,13 +21,13 @@
 			history.replaceState( null, 'Home', '/' );
 		}
 
-		href = this.href || target.href;
+		// href = this.href || target.href;
 		while ( ! href && target !== exitElement && target.parentNode ) {
 			target = target.parentNode;
 			href = target.href;
 		}
 
-		href = href || this.getElementsByTagName( 'a' )[ 0 ].href || 'about:blank';
+		href = href || target.getElementsByTagName( 'a' )[ 0 ].href || 'about:blank';
 
 		/* jshint -W040 */
 		window.location = href;
@@ -36,67 +37,54 @@
 		return false;
 	}
 
-
-	if ( ! exitElement ) {
-		return;
+	function quickExitKeyboard( event ) {
+		if ( accesskeyLinks[ event.keyCode ]) {
+			if ( /^(INPUT|TEXTAREA|SELECT|BUTTON)$/i.test( event.target.tagName )) {
+				return;
+			}
+			quickExit.call( event.target, event, accesskeyLinks[ event.keyCode ] );
+		}
 	}
 
 
 	function init() {
-		var eventFunction;
+		var addEventListener = document.addEventListener ? 'addEventListener' : 'attachEvent';
 		var i;
-		var accesskey;
-		var link;
+		var accesskey, link;
 
-		var KEYS = {
-			esc: 27
-		};
+		function getAccesskey( element ) {
+			var KEYS = {
+				esc: 27
+			};
+			var accesskey = element.getAttribute( 'data-accesskey' ) || element.getAttribute( 'accesskey' );
 
-		var accesskeyLinks = {};
-
-		function quickExitKeyboard( event ) {
-			if ( accesskeyLinks[ event.keyCode ]) {
-				if ( /^(INPUT|TEXTAREA|SELECT|BUTTON)$/i.test( event.target.tagName )) {
-					return;
-				}
-				quickExit.call( accesskeyLinks[ event.keyCode ], event );
+			if ( /^[a-zA-Z]$/.test( accesskey )) {
+				return accesskey.toUpperCase().charCodeAt( 0 );
+			} else if ( accesskey ) {
+				return KEYS[ accesskey.toLowerCase() ];
 			}
+
+			return null;
 		}
 
 		link = exitElement.getElementsByTagName( 'a' );
 		for ( i = 0; i < link.length; i++ ) {
-
-			accesskey = link[ i ].getAttribute( 'data-accesskey' );
-			if ( accesskey ) {
-				accesskey = KEYS[ accesskey.toLowerCase() ];
-
-			} else {
-				accesskey = link[ i ].getAttribute( 'accesskey' );
-				if ( accesskey ) {
-					accesskey = accesskey.toUpperCase().charCodeAt( 0 );
-				}
-			}
+			accesskey = getAccesskey( link[ i ]);
 
 			if ( accesskey ) {
 				accesskeyLinks[ accesskey ] = link[ i ];
 			}
 		}
 
-
-		if ( document.addEventListener ) {
-			eventFunction = 'addEventListener';
-		} else if ( document.attachEvent ) {
-			eventFunction = 'attachEvent';
-		}
-
-		if ( eventFunction ) {
-			exitElement[ eventFunction ]( 'click', quickExit, true );
-			if ( Object.keys( accesskeyLinks ).length ) {
-				document[ eventFunction ]( 'keydown', quickExitKeyboard, true );
-			}
+		exitElement[ addEventListener ]( 'click', quickExit, true );
+		if ( Object.keys( accesskeyLinks ).length ) {
+			document[ addEventListener ]( 'keydown', quickExitKeyboard, true );
 		}
 	}
-	init();
 
+
+	if ( exitElement ) {
+		init();
+	}
 
 }( window.top ));
