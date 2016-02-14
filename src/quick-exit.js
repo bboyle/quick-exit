@@ -48,45 +48,37 @@
 
 
 	function init() {
-		var eventFunction;
+		var addEventListener = document.addEventListener ? 'addEventListener' : 'attachEvent';
 		var i;
-		var accesskey;
-		var link;
+		var accesskey, link;
 
-		var KEYS = {
-			esc: 27
-		};
+		function getAccesskey( element ) {
+			var KEYS = {
+				esc: 27
+			};
+			var accesskey = element.getAttribute( 'data-accesskey' ) || element.getAttribute( 'accesskey' );
+
+			if ( /^[a-zA-Z]$/.test( accesskey )) {
+				return accesskey.toUpperCase().charCodeAt( 0 );
+			} else if ( accesskey ) {
+				return KEYS[ accesskey.toLowerCase() ];
+			}
+
+			return null;
+		}
 
 		link = exitElement.getElementsByTagName( 'a' );
 		for ( i = 0; i < link.length; i++ ) {
-
-			accesskey = link[ i ].getAttribute( 'data-accesskey' );
-			if ( accesskey ) {
-				accesskey = KEYS[ accesskey.toLowerCase() ];
-
-			} else {
-				accesskey = link[ i ].getAttribute( 'accesskey' );
-				if ( accesskey ) {
-					accesskey = accesskey.toUpperCase().charCodeAt( 0 );
-				}
-			}
+			accesskey = getAccesskey( link[ i ]);
 
 			if ( accesskey ) {
 				accesskeyLinks[ accesskey ] = link[ i ];
 			}
 		}
 
-		if ( document.addEventListener ) {
-			eventFunction = 'addEventListener';
-		} else if ( document.attachEvent ) {
-			eventFunction = 'attachEvent';
-		}
-
-		if ( eventFunction ) {
-			exitElement[ eventFunction ]( 'click', quickExit, true );
-			if ( Object.keys( accesskeyLinks ).length ) {
-				document[ eventFunction ]( 'keydown', quickExitKeyboard, true );
-			}
+		exitElement[ addEventListener ]( 'click', quickExit, true );
+		if ( Object.keys( accesskeyLinks ).length ) {
+			document[ addEventListener ]( 'keydown', quickExitKeyboard, true );
 		}
 	}
 
