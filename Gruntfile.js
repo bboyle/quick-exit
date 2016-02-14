@@ -30,8 +30,7 @@ module.exports = function( grunt ) {
 			acceptance: {
 				options: {
 					test: true,
-					concise: true,
-					failFast: true
+					concise: true
 				},
 				files: {
 					'log/casper-acceptance.xml' : [ 'test/*spec.js' ]
