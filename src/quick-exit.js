@@ -13,9 +13,9 @@
 		window.document.body.style.opacity = 0;
 		window.document.title = 'New Tab';
 		// clears current frame only
-		/* jshint -W060 */
-		document.write( '' ); // eslint-disable-line no-implied-eval
-		/* jshint +W060 */
+		while ( document.firstChild ) {
+			document.removeChild( document.firstChild );
+		}
 
 		if ( history && history.replaceState ) {
 			history.replaceState( null, 'Home', '/' );
