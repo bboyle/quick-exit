@@ -71,6 +71,8 @@ View [quick-exit.css](src/quick-exit.css)
 - listen for accesskey (without modifiers)
 - hide window.top frame contents (using opacity)
 - hide window.top page title (using 'New Tab')
+- runs immediately (no delay for ready/load events)
+  - you *must load quick-exit.js after your element is placed in the HTML*
 
 View [quick-exit.js](src/quick-exit.js)
 
