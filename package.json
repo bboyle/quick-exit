@@ -1,6 +1,6 @@
 {
   "name": "quick-exit",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Button to protect privacy when visitors need to exit a website quickly",
   "main": "quick-exit.js",
   "scripts": {
