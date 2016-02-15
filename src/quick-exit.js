@@ -2,7 +2,7 @@
 	'use strict';
 
 	var history = window.history;
-	var exitElement = document.getElementById( 'quick-exit' );
+	var exitElement;
 	var accesskeyLinks = {};
 
 
@@ -47,8 +47,7 @@
 	}
 
 
-	function init() {
-		var addEventListener = document.addEventListener ? 'addEventListener' : 'attachEvent';
+	function setupEventHandlers( addEventListener ) {
 		var i;
 		var accesskey, link;
 
@@ -83,8 +82,25 @@
 	}
 
 
-	if ( exitElement ) {
-		init();
+	function init() {
+		var addEventListener = document.addEventListener ? 'addEventListener' : 'attachEvent';
+
+		if ( exitElement ) {
+			return; // aleady setup
+		}
+
+		exitElement = document.getElementById( 'quick-exit' );
+
+		if ( exitElement ) {
+			// setup now
+			setupEventHandlers( addEventListener );
+		} else {
+			// setup on ready/load
+			document[ addEventListener ]( 'DOMContentLoaded', init );
+			document[ addEventListener ]( 'load', init );
+		}
 	}
+
+	init();
 
 }( window.top ));

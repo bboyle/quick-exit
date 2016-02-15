@@ -1,5 +1,6 @@
 /*global casper */
 const TEST_URL = 'http://localhost:9999/test/test.html';
+const TEST_URL_LOAD = 'http://localhost:9999/test/test-load.html';
 const TEST_URL_UNLOAD = 'http://localhost:9999/test/unload.html';
 const TEST_URL_DOMAIN = 'http://bboyle.github.io/quick-exit/test/localhost.html';
 const TEST_URL_ESCAPE = 'http://localhost:9999/test/test-escape.html';
@@ -65,6 +66,7 @@ function keyboardBehaviourTest( url, accesskey, urlRegex ) {
 
 
 casper.test.begin( 'quick exit (click)', 5, standardBehaviourTest( TEST_URL ));
+casper.test.begin( 'quick exit (load event)', 5, standardBehaviourTest( TEST_URL_LOAD ));
 casper.test.begin( 'quick exit (unload)', 5, standardBehaviourTest( TEST_URL_UNLOAD ));
 casper.test.begin( 'quick exit (same origin)', 5, standardBehaviourTest( TEST_URL_DOMAIN ));
 
