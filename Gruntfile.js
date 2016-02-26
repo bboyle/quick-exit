@@ -81,7 +81,7 @@ module.exports = function( grunt ) {
 			},
 			sass: {
 				files: 'src/*.scss',
-				tasks: [ 'sass:src', 'casper:acceptance' ]
+				tasks: [ 'sass:src' ]
 			},
 			js: {
 				files: 'src/*.js',
@@ -106,6 +106,6 @@ module.exports = function( grunt ) {
 
 	// helpers
 	grunt.registerTask( 'test', [ 'eslint', 'connect:testserver', 'casper' ]);
-	grunt.registerTask( 'build', [ 'uglify', 'sass:dist' ]);
+	grunt.registerTask( 'build', [ 'sass:src', 'test', 'uglify', 'sass:dist' ]);
 	grunt.registerTask( 'default', [ 'sass:src', 'test', 'watch' ]);
 };
