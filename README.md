@@ -130,7 +130,15 @@ You can customise any part of the button.
 Fork this repo and make your changes.
 Sassy CSS source is available for the stylesheet.
 
-For social media icons, visit those websites and search for their logo guidelines. Example: *YouTube logo guidelines*
+#### Third-party brand guidelines
+
+The quick exit button uses standard HTML links. You may wish to use recognisable brand icons as image links.
+I have used some common social media brands as examples in this repo. Please read the brand guidelines carefully and decide whether it is appropriate for you to use their logos on your site.
+
+- [Google+ icon branding guidelines](https://developers.google.com/+/branding-guidelines#google-icon-branding-guidelines)
+- [Using the YouTube Logo](https://www.youtube.com/yt/brand/using-logo.html)
+- [Guidelines for "f" Logo (Facebook)](https://www.facebookbrand.com/guidelines?asset=2&media=1)
+- [Twitter brand guidelines](https://about.twitter.com/press/twitter-brand-policy)
 
 
 ### A note re frames
